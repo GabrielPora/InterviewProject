@@ -6,5 +6,6 @@ Interview project for fitillion
 • Finally, give the option to mark as Read Later, and give the ability to see these items later
 • You can choose the tech - there is no 1 right way. Keep it simple
 
-To run the prohject 
-docker-compose -f docker-compose.yml up  
+To run the project 
+docker-compose -f docker-compose.yml up --build 
+docker-compose -f docker-compose.yml up

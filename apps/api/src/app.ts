@@ -1,10 +1,10 @@
 import * as express from "express";
 import { Request, Response } from "express";
-import { User } from "./entity/user.entity";
-import { myDataSource } from "./app-data-source";
+import { User } from "./entities/user";
+import { dataSource } from "./database/data-source";
 
 // establish database connection
-myDataSource
+dataSource
   .initialize()
   .then(() => {
     console.log("Data Source has been initialized!");
@@ -19,36 +19,36 @@ app.use(express.json());
 
 // register routes
 app.get("/users", async function (req: Request, res: Response) {
-  const users = await myDataSource.getRepository(User).find();
+  const users = await dataSource.getRepository(User).find();
   res.json(users);
 });
 
 app.get("/users/:id", async function (req: Request, res: Response) {
   var id: number = parseInt(req.params.id);
-  const results = await myDataSource.getRepository(User).findOneBy({
+  const results = await dataSource.getRepository(User).findOneBy({
     id: id,
   });
   return res.send(results);
 });
 
 app.post("/users", async function (req: Request, res: Response) {
-  const user = await myDataSource.getRepository(User).create(req.body);
-  const results = await myDataSource.getRepository(User).save(user);
+  const user = await dataSource.getRepository(User).create(req.body);
+  const results = await dataSource.getRepository(User).save(user);
   return res.send(results);
 });
 
 app.put("/users/:id", async function (req: Request, res: Response) {
   var id: number = parseInt(req.params.id);
-  const user = await myDataSource.getRepository(User).findOneBy({
+  const user = await dataSource.getRepository(User).findOneBy({
     id: id,
   });
-  myDataSource.getRepository(User).merge(user, req.body);
-  const results = await myDataSource.getRepository(User).save(user);
+  dataSource.getRepository(User).merge(user, req.body);
+  const results = await dataSource.getRepository(User).save(user);
   return res.send(results);
 });
 
 app.delete("/users/:id", async function (req: Request, res: Response) {
-  const results = await myDataSource.getRepository(User).delete(req.params.id);
+  const results = await dataSource.getRepository(User).delete(req.params.id);
   return res.send(results);
 });
 
