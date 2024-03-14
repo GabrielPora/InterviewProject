@@ -10,7 +10,7 @@ import { Tree } from "./tree";
 import { Parent } from "./parent";
 // import { Author } from "./author";
 
-@Entity()
+@Entity('commit')
 export class Commit {
   @PrimaryGeneratedColumn()
   id: number;

@@ -1,21 +1,21 @@
-import "reflect-metadata";
-import * as express from "express";
-import { Request, Response } from "express";
+import 'reflect-metadata';
+import express, { Request, Response } from "express";
 import { getDs } from "./database/data-source";
 import { ControllerMap, Routes } from "./routes";
-// import { checkSchemaAndDetermineSyncState } from "./database/db-initilisation";
+import { checkSchemaAndDetermineSyncState } from "./database/db-initilisation";
 
 const main = async () => {
   try {
-    // const shouldSyncSchema = await checkSchemaAndDetermineSyncState(
-    //   process.env.DB_SCHEMA ?? "github",
-    //   process.env.DB_DEFAULT_TABLE ?? "user"
-    // );
+    const shouldSyncSchema = await checkSchemaAndDetermineSyncState(
+      process.env.DB_SCHEMA ?? "public",
+      process.env.DB_DEFAULT_TABLE ?? "user"
+    );
     const ds = await getDs(true).initialize();
 
-    // if (shouldSyncSchema) { // enable check once in production
+    if (shouldSyncSchema) { // enable check once in production
     const dropBeforeSync = false;
     await ds.synchronize(dropBeforeSync);
+	}
 
     const app = express();
     app.use(express.json());

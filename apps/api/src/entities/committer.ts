@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('committer')
 export class Committer {
   @PrimaryGeneratedColumn()
   id: number;

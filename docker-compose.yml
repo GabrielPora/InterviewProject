@@ -2,23 +2,24 @@ version: '3'
 services:
   postgres-service:
     image: postgres:16.0
+    # platform: linux/amd64
     container_name: postgres-service
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    env_file: '.env'
+    env_file: 'db.env'
 
 
   api-service:
     build:
       context: .
       dockerfile: apps/api/Dockerfile.local
-    env_file: '.env'
-    container_name: api-service
     ports:
       - '3000:3000'
       - '9229:9229'
+    env_file: 'api.env'
+    container_name: api-service
     depends_on:
       - postgres-service
     volumes:
@@ -28,3 +29,7 @@ services:
 volumes:
   postgres-data:
   api-service-node-modules:
+
+# networks:
+#   internal-network:
+#     driver: bridge

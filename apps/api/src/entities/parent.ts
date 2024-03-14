@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Commit } from "./commit";
 
-@Entity()
+@Entity("parent")
 export class Parent {
   @PrimaryGeneratedColumn()
   id: number;

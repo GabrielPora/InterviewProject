@@ -7,5 +7,7 @@ Interview project for fitillion
 • You can choose the tech - there is no 1 right way. Keep it simple
 
 To run the project 
+
+docker-compose -f docker-compose.yml up --build --remove-orphans
 docker-compose -f docker-compose.yml up --build 
 docker-compose -f docker-compose.yml up

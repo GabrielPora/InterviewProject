@@ -31,19 +31,20 @@ export class CommitController {
     };
     var querystring = require("querystring");
     const baseUrl = process.env.BASE_URL;
-    const owner = gitApiUrlParam.owner ? gitApiUrlParam.owner : process.env.OWNER;
-    const repos = gitApiUrlParam.repos ? gitApiUrlParam.repos : process.env.REPOS;
+    const owner = gitApiUrlParam.owner
+      ? gitApiUrlParam.owner
+      : process.env.OWNER;
+    const repos = gitApiUrlParam.repos
+      ? gitApiUrlParam.repos
+      : process.env.REPOS;
     const url = baseUrl + "/repos/" + owner + "/" + repos + "/commits";
     //...
     axios
-      .get(
-        url,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
+      .get(url, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then(function (response) {
         console.log(response);
       });

@@ -1,6 +1,11 @@
-import { query } from "express";
 import { DataSource, Logger } from "typeorm";
-const { Pool } = require("pg");
+import { User } from "../entities/user";
+import { Tree } from "../entities/tree";
+import { Repository } from "../entities/repository";
+import { Parent } from "../entities/parent";
+import { Committer } from "../entities/committer";
+import { Commit } from "../entities/commit";
+import { Author } from "../entities/author";
 
 export const dataSource = new DataSource({
   type: "postgres",
@@ -9,11 +14,14 @@ export const dataSource = new DataSource({
   database: process.env.DB_NAME,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  entities: ["src/entity/*.js"],
-  logging: true,
-  synchronize: true,
+  entities: [Author, Commit, Committer, Parent, Repository, Tree, User],
+  logging: false,
+  synchronize: false,
   migrations: [],
   subscribers: [],
+  extra: {
+    schema: process.env.DB_SCHEMA,
+  },
 });
 
 const logAll = {
