@@ -38,18 +38,27 @@ export class CommitController {
       ? gitApiUrlParam.repos
       : process.env.REPOS;
     const url = baseUrl + "/repos/" + owner + "/" + repos + "/commits";
-    //...
-    axios
+
+	
+    let results: any = await axios
       .get(url, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-      })
-      .then(function (response) {
-        console.log(response);
       });
 
-    const newCommit = commitRepository.create(req.body);
+	  let value: Commit[];
+	  if (
+      results !== null &&
+      results !== undefined 
+    ) {
+		let data = results.data;
+		data.forEach((element) => {
+      value.push(element);
+    });
+    }
+
+    const newCommit = commitRepository.create(value);
 
     try {
       await commitRepository.save(newCommit);

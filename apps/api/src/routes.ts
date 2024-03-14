@@ -1,3 +1,4 @@
+import { CommitController } from "./controllers/commitController";
 import { UserController } from "./controllers/userController";
 
 interface BaseRoute {
@@ -17,6 +18,7 @@ type ControllerKey = keyof ControllerMapType;
 
 export const ControllerMap = {
   UserController: UserController,
+  CommitController: CommitController,
 } as const;
 
 interface UserControllerRoute extends BaseRoute {
@@ -24,7 +26,13 @@ interface UserControllerRoute extends BaseRoute {
   action: keyof UserController;
 }
 
-type Route = UserControllerRoute;
+interface CommitControllerRoute extends BaseRoute {
+  controller: "CommitController";
+  action: keyof CommitController;
+}
+
+
+type Route = UserControllerRoute | CommitControllerRoute;
 
 export const Routes: Route[] = [
   // UserControllerRoutes
@@ -32,6 +40,14 @@ export const Routes: Route[] = [
     controller: "UserController",
     action: "getUserById",
     route: "/users",
+    method: "get",
+  },
+
+  // CommitControllerRoutes
+  {
+    controller: "CommitController",
+    action: "createCommit",
+    route: "/repocommit",
     method: "get",
   },
 ];
