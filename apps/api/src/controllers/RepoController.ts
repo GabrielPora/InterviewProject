@@ -1,26 +1,36 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { User } from "../entities/user";
+import { Repository } from "../entities/repository";
 import { dataSource } from "../database/data-source";
 import axios from "axios";
 // import qs from "qs";
 
-const userRepository = dataSource.getRepository(User);
+const repository = dataSource.getRepository(Repository);
 
 export class RepoController {
-  async getAllUsers(req: Request, res: Response) {
-    const users = await userRepository.find();
-    res.json(users);
+  async getAllRepos(req: Request, res: Response) {
+    const repo = await repository.find();
+    res.json(repo);
   }
 
-  async getUserById(req: Request, res: Response) {
+  async getRepoById(req: Request, res: Response) {
     const id: number = parseInt(req.params.id);
-    const user = await userRepository.findOneBy({ id });
+    const repo = await repository.findOneBy({ id });
 
-    if (!user) {
-      res.status(404).send("User not found");
+    if (!repo) {
+      res.status(404).send("Repo not found");
     } else {
-      res.json(user);
+      res.json(repo);
+    }
+  }
+
+  async createRepo(req: Request, res: Response) {
+    const newRepo = repository.create(req.body);
+
+    try {
+      await repository.save(newRepo);
+      res.status(201).json(newRepo);
+    } catch (error) {
+      res.status(400).send("Failed to create repo");
     }
     var querystring = require("querystring");
     const baseUrl = process.env.BASE_URL;
@@ -32,9 +42,9 @@ export class RepoController {
       .post(
         url,
         querystring.stringify({
-          username: "abcd", //gave the values directly for testing
+          reponame: "abcd", //gave the values directly for testing
           password: "1235!",
-          client_id: "user-client",
+          client_id: "repo-client",
         }),
         {
           headers: {
@@ -47,37 +57,26 @@ export class RepoController {
       });
   }
 
-  async createUser(req: Request, res: Response) {
-    const newUser = userRepository.create(req.body);
+  async updateRepo(req: Request, res: Response) {
+    const repoId = parseInt(req.params.id);
+    const updatedRepo = req.body;
 
     try {
-      await userRepository.save(newUser);
-      res.status(201).json(newUser);
+      await repository.update(repoId, updatedRepo);
+      res.status(200).send("Repo updated");
     } catch (error) {
-      res.status(400).send("Failed to create user");
+      res.status(400).send("Failed to update repo");
     }
   }
 
-  async updateUser(req: Request, res: Response) {
-    const userId = parseInt(req.params.id);
-    const updatedUser = req.body;
+  async deleteRepo(req: Request, res: Response) {
+    const repoId = parseInt(req.params.id);
 
     try {
-      await userRepository.update(userId, updatedUser);
-      res.status(200).send("User updated");
+      await repository.delete(repoId);
+      res.status(204).send("Repo deleted");
     } catch (error) {
-      res.status(400).send("Failed to update user");
-    }
-  }
-
-  async deleteUser(req: Request, res: Response) {
-    const userId = parseInt(req.params.id);
-
-    try {
-      await userRepository.delete(userId);
-      res.status(204).send("User deleted");
-    } catch (error) {
-      res.status(400).send("Failed to delete user");
+      res.status(400).send("Failed to delete repo");
     }
   }
 }

@@ -1,10 +1,10 @@
-import { UserController } from './controllers/UserController';
+import { UserController } from "./controllers/userController";
 
 interface BaseRoute {
-method: 'get' | 'post' | 'put' | 'delete';
-route: string;
-controller: ControllerKey;
-action: string;
+  method: "get" | "post" | "put" | "delete";
+  route: string;
+  controller: ControllerKey;
+  action: string;
 }
 
 type ControllerMapType = typeof ControllerMap;
@@ -16,18 +16,22 @@ type ControllerKey = keyof ControllerMapType;
 // 3. Add the new interface to the Route type - type Route = UserControllerRoute | Exampl
 
 export const ControllerMap = {
-UserController: UserController,
+  UserController: UserController,
 } as const;
 
-
 interface UserControllerRoute extends BaseRoute {
-controller: "UserController";
-action: keyof UserController;
+  controller: "UserController";
+  action: keyof UserController;
 }
 
 type Route = UserControllerRoute;
 
 export const Routes: Route[] = [
-// UserControllerRoutes
-{ controller: 'UserController', action: 'getUserById', route: '/users', method: 'get' },
+  // UserControllerRoutes
+  {
+    controller: "UserController",
+    action: "getUserById",
+    route: "/users",
+    method: "get",
+  },
 ];

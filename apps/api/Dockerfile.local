@@ -1,8 +1,10 @@
 # Use an official Node.js runtime as the base image
-FROM node:14
+FROM node:18.16 as build
 
 # Set the working directory in the container
-WORKDIR /api/src
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y netcat-openbsd
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -17,4 +19,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "index.ts"]
+CMD ["sh", "-c", "while ! nc -z postgres-service 5432; do sleep 1; done; npm run start-api"]

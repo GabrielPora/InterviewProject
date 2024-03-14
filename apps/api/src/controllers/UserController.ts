@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
 import { User } from "../entities/user";
 import { dataSource } from "../database/data-source";
 
