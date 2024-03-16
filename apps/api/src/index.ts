@@ -7,7 +7,7 @@ import { checkSchemaAndDetermineSyncState } from "./database/db-initilisation";
 const main = async () => {
   try {
     const shouldSyncSchema = await checkSchemaAndDetermineSyncState(
-      process.env.DB_SCHEMA ?? "public",
+      process.env.DB_SCHEMA ?? "github",
       process.env.DB_DEFAULT_TABLE ?? "user"
     );
     const ds = await getDs(true).initialize();

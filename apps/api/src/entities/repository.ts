@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 import { Owner } from "../interfaces/owner";
 
-@Entity("repository")
+@Entity("repository", { schema: "github" })
 export class Repository {
   @PrimaryGeneratedColumn()
   id: number;
