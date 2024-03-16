@@ -2,19 +2,9 @@ import { Request, Response } from "express";
 import { Commit } from "../entities/commit";
 import { dataSource } from "../database/data-source";
 import { GitApiUrlParam } from "../interfaces/owner";
-import axios from "axios";
 import { Octokit } from "octokit";
-import { Verification } from "../entities/verification";
-import { Author } from "../entities/author";
-import { Tree } from "../entities/tree";
-import { Committer } from "../entities/committer";
-// import qs from "qs";
 
 const commitRepository = dataSource.getRepository(Commit);
-const authorRepository = dataSource.getRepository(Author);
-const committerRepository = dataSource.getRepository(Committer);
-const verificationRepository = dataSource.getRepository(Verification);
-const treeRepository = dataSource.getRepository(Tree);
 
 export class CommitController {
   async getAllCommits(req: Request, res: Response) {
@@ -42,7 +32,6 @@ export class CommitController {
       owner: req.params.owner,
       repos: req.params.repos,
     };
-    const baseUrl = process.env.BASE_URL;
     const owner = gitApiUrlParam.owner
       ? gitApiUrlParam.owner
       : process.env.OWNER;
