@@ -27,10 +27,12 @@ export class CommitController {
     }
   }
 
-  async createCommit(req: Request, res: Response) {
+  async populateDB(req: Request, res: Response) {
+    const queryString = JSON.stringify(req.query);
+    const json = JSON.parse(queryString);
     const gitApiUrlParam: GitApiUrlParam = {
-      owner: req.params.owner,
-      repos: req.params.repos,
+      owner: json.owner,
+      repos: json.repos,
     };
     const owner = gitApiUrlParam.owner
       ? gitApiUrlParam.owner
@@ -75,6 +77,34 @@ export class CommitController {
       res.status(201).json(newCommit);
     } catch (error) {
       res.status(400).send("Failed to create commit");
+    }
+  }
+
+  async favoriteCommitUpdate(req: Request, res: Response) {
+    const queryString = JSON.stringify(req.query);
+    const json = JSON.parse(queryString);
+    if (json.id === null || Number.isNaN(json.id) || json.favorite === undefined) {
+      res.status(400).send("Missing User ID or favorite not set");
+      return;
+    }
+    const id = parseInt(json.id);
+    const favorite: boolean = JSON.parse(json.favorite);
+    let repoToUpdate = await commitRepository.findOneBy({ id });
+    if (!repoToUpdate) {
+      res.status(404).send("Repo does not exist");
+      return;
+    }
+
+    try {
+      await commitRepository
+        .createQueryBuilder()
+        .update(Commit)
+        .set({ favorite: favorite })
+        .where("id = :id", { id })
+        .execute();
+      res.status(200).send("Commit favorite");
+    } catch (error) {
+      res.status(400).send("Failed to favorite commit");
     }
   }
 

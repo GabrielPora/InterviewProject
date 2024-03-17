@@ -24,16 +24,23 @@ export class Commit {
   @Column({ name: "url", nullable: true })
   url: string;
 
+  @Column({ name: "favorite", nullable: true })
+  favorite: boolean;
+
   // RELATIONSHIPS -------------------------------------------------------- //
   @ManyToOne(() => Author, (author) => author.commits, { cascade: true })
   @JoinColumn({ name: "author_id", referencedColumnName: "id" })
   author: Author;
 
-  @ManyToOne(() => Committer, (committer) => committer.commits, { cascade: true })
+  @ManyToOne(() => Committer, (committer) => committer.commits, {
+    cascade: true,
+  })
   @JoinColumn({ name: "committer_id", referencedColumnName: "id" })
   committer: Committer;
 
-  @ManyToOne(() => Verification, (verification) => verification.commits, { cascade: true })
+  @ManyToOne(() => Verification, (verification) => verification.commits, {
+    cascade: true,
+  })
   @JoinColumn({ name: "verification_id", referencedColumnName: "id" })
   verification: Verification;
 

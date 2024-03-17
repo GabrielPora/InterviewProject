@@ -45,8 +45,20 @@ export const Routes: Route[] = [
   // CommitControllerRoutes
   {
     controller: "CommitController",
-    action: "createCommit",
-    route: "/repocommit",
+    action: "populateDB",
+    route: "/populatedb",
     method: "get",
+  },
+  {
+    controller: "CommitController",
+    action: "getAllCommits",
+    route: "/getallcommits",
+    method: "get",
+  },
+  {
+    controller: "CommitController",
+    action: "favoriteCommitUpdate",
+    route: "/favorite",
+    method: "post",
   },
 ];
