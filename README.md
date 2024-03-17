@@ -11,3 +11,29 @@ To run the project
 docker-compose -f docker-compose.yml up --build --remove-orphans
 docker-compose -f docker-compose.yml up --build 
 docker-compose -f docker-compose.yml up
+
+
+
+# To Run Client
+`cd apps/client/my-github-client/package.json`
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd my-github-client
+  npm start
+
+Happy hacking!

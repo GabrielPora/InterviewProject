@@ -58,7 +58,7 @@ const main = async () => {
       };
       app[route.method](route.route, actionCallback);
     });
-    app.listen(3000, () => console.log("API RUNNING..."));
+    app.listen(4200, () => console.log("API RUNNING..."));
   } catch (error) {
     console.error(error);
   }

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Interview project for fitillion",
   "scripts": {
+    "start": "react-scripts start",
     "start-api": "nodemon --config nodemon.json",
     "build-api": "node build-api.js prod",
     "typeorm": "typeorm-ts-node-commonjs",

@@ -10,13 +10,12 @@ services:
       - postgres-data:/var/lib/postgresql/data
     env_file: 'db.env'
 
-
   api-service:
     build:
       context: .
       dockerfile: apps/api/Dockerfile.local
     ports:
-      - '3000:3000'
+      - '4200:4200'
       - '9229:9229'
     env_file: 'api.env'
     container_name: api-service
@@ -25,10 +24,25 @@ services:
     volumes:
       - api-service-node-modules:/app/node_modules
       - ./:/app
+
+  # client-service:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/client/my-github-client/Dockerfile.local
+  #   ports:
+  #     - '3000:3000'
+  #   # env_file: 'api.env'
+  #   container_name: client-service
+  #   depends_on:
+  #     - api-service
+  #   volumes:
+  #     - client-service-node-modules:/app/node_modules
+  #     - ./:/app
       
 volumes:
   postgres-data:
   api-service-node-modules:
+  # client-service-node-modules:
 
 # networks:
 #   internal-network:

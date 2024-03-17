@@ -31,7 +31,6 @@ interface CommitControllerRoute extends BaseRoute {
   action: keyof CommitController;
 }
 
-
 type Route = UserControllerRoute | CommitControllerRoute;
 
 export const Routes: Route[] = [
