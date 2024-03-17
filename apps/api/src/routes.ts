@@ -14,7 +14,7 @@ type ControllerKey = keyof ControllerMapType;
 // Steps to add new controller to routes:
 // 1. Add controller to ControllerMap - example: "ExampleController": ExampleController,
 // 2. Create interface for controller route which extend BaseRoute - example: interface E
-// 3. Add the new interface to the Route type - type Route = UserControllerRoute | Exampl
+// 3. Add the new interface to the Route type - type Route = UserControllerRoute | Example
 
 export const ControllerMap = {
   UserController: UserController,

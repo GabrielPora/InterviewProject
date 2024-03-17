@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Repository } from "../entities/repository";
 import { dataSource } from "../database/data-source";
 import axios from "axios";
-// import qs from "qs";
 
 const repository = dataSource.getRepository(Repository);
 

@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Commit } from "./commit";
-import { Committer } from "./committer";
 
 @Entity("author", { schema: "github" })
 export class Author {

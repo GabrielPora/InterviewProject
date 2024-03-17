@@ -6,34 +6,44 @@ Interview project for fitillion
 • Finally, give the option to mark as Read Later, and give the ability to see these items later
 • You can choose the tech - there is no 1 right way. Keep it simple
 
-To run the project 
+# To run the project 
+# Note you need 2 terminals and docker installed
 
-docker-compose -f docker-compose.yml up --build --remove-orphans
-docker-compose -f docker-compose.yml up --build 
-docker-compose -f docker-compose.yml up
+# To Run API
+# Terminal 1
+# At root of project run the following in 
+
+`npm install`
+
+# To build the project
+`docker-compose -f docker-compose.yml up --build --remove-orphans`
+
+# To rerun project after been stopped
+`docker-compose -f docker-compose.yml up`
+
+# Note any .env changes will require a rebuild
 
 
 
 # To Run Client
-`cd apps/client/my-github-client/package.json`
-Inside that directory, you can run several commands:
+# Terminal 2
 
-  npm start
-    Starts the development server.
+Navigate to the directory
+`cd apps/client/my-github-client`
+where the file package.json is located.
 
-  npm run build
-    Bundles the app into static files for production.
+Run
+`npm install`
 
-  npm test
-    Starts the test runner.
+Then run
+  `npm start`
+  To start the development server.
 
-  npm run eject
-    Removes this tool and copies build dependencies, configuration files
-    and scripts into the app directory. If you do this, you can’t go back!
+# Note for the .env files
+Please note you need update the TOKEN is api.env file.
+The following variables are place holders for default DB.
+OWNER=GabrielPora
+REPOS=CodeWars
 
-We suggest that you begin by typing:
-
-  cd my-github-client
-  npm start
-
-Happy hacking!
+# For crashes
+If api crashes. I added hotreloading to it. you just need to save any file and the api will hot reload.

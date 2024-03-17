@@ -37,8 +37,6 @@ export class User {
   @Column()
   forks_url: string;
 
-  // Define other URL columns as needed
-
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   created_at: Date;
 
@@ -48,23 +46,17 @@ export class User {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   pushed_at: Date;
 
-  // Define other timestamp columns as needed
-
   @Column()
   git_url: string;
 
   @Column()
   ssh_url: string;
 
-  // Define other URL columns as needed
-
   @Column()
   stargazers_count: number;
 
   @Column()
   watchers_count: number;
-
-  // Define other count columns as needed
 
   @Column()
   language: string;
@@ -75,13 +67,7 @@ export class User {
   @Column()
   has_projects: boolean;
 
-  // Define other boolean columns as needed
-
   @Column()
   forks_count: number;
-
-  // Define other count columns as needed
-
-  // Define other columns as needed
 }
 
