@@ -8,15 +8,17 @@ const UpdateButton = () => {
 
   const handleClick = async () => {
     try {
-      const response = await axios.get('http://localhost:4200/populatedb', {
+      await axios.get('http://localhost:4200/populatedb', {
         params: {
           owner,
           repos
         }
       });
-      setResponse(response.data); // Assuming the response contains some data you want to display
+      setResponse('Data updated successfully!');
+      window.location.reload(); // Refresh the page
     } catch (error) {
       console.error('Error updating data:', error);
+      setResponse('Error updating data');
     }
   };
 
@@ -32,7 +34,7 @@ const UpdateButton = () => {
         <input type="text" value={repos} onChange={(e) => setRepos(e.target.value)} />
       </label>
       <br />
-      <button onClick={handleClick}>Update</button>
+      <button onClick={handleClick}>Update DB</button>
       <div>{response}</div>
     </div>
   );

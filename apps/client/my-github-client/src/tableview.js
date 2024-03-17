@@ -6,6 +6,7 @@ const TableView = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,11 +25,13 @@ const TableView = () => {
     commit.message.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredFavorites = showFavoritesOnly ? filteredData.filter(commit => favorites.includes(commit.id)) : filteredData;
+
   const pageSize = 10;
-  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const totalPages = Math.ceil(filteredFavorites.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const paginatedData = filteredData.slice(startIndex, endIndex);
+  const paginatedData = filteredFavorites.slice(startIndex, endIndex);
 
   const handleFavoriteToggle = (commitId) => {
     if (favorites.includes(commitId)) {
@@ -40,14 +43,19 @@ const TableView = () => {
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
-  <h2 style={{ marginBottom: '20px' }}>Data Table</h2>
+  <h2 style={{ marginBottom: '20px' }}>Commits Data Table</h2>
   <input
     type="text"
     placeholder="Search..."
     value={searchQuery}
     onChange={(e) => setSearchQuery(e.target.value)}
-    style={{ marginBottom: '20px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
+    style={{ marginBottom: '20px', padding: '8px', marginRight: '5px', borderRadius: '4px', border: '1px solid #ccc', width: '85%' }}
   />
+  <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+  style={{ marginBottom: '20px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+  >
+        {showFavoritesOnly ? 'Show All' : 'Show Favorites Only'}
+      </button>
   <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
     <thead>
       <tr>
