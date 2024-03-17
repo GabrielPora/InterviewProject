@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import MyButton from './repo';
 import TableView from './tableView';
 import UpdateButton from './updateDB';
 
@@ -11,7 +10,6 @@ function App() {
 	  <UpdateButton/>
 
 		<br></br>
-		  <MyButton />
 		  <TableView />
       </header>
     </div>

@@ -39,54 +39,72 @@ const TableView = () => {
   };
 
   return (
-    <div>
-      <h2>Data Table</h2>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Message</th>
-            <th>Comment Count</th>
-            <th>URL</th>
-            <th>Favorite</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((commit) => (
-            <tr key={commit.id}>
-              <td>{commit.id}</td>
-              <td>{commit.message}</td>
-              <td>{commit.comment_count}</td>
-              <td>{commit.url}</td>
-              <td>
-                <button
-                  onClick={() => handleFavoriteToggle(commit.id)}
-                  style={{ color: favorites.includes(commit.id) ? 'red' : 'black' }}
-                >
-                  {favorites.includes(commit.id) ? 'Remove from Favorites' : 'Add to Favorites'}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button key={i + 1} onClick={() => setCurrentPage(i + 1)}>
-            {i + 1} 
-          </button>
-        ))}
-		<br></br>
-		<br></br>
-		<br></br>
-      </div>
-    </div>
+    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
+  <h2 style={{ marginBottom: '20px' }}>Data Table</h2>
+  <input
+    type="text"
+    placeholder="Search..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    style={{ marginBottom: '20px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '100%' }}
+  />
+  <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+    <thead>
+      <tr>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>ID</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Message</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Comment Count</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>URL</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Favorite</th>
+      </tr>
+    </thead>
+    <tbody>
+      {paginatedData.map((commit) => (
+        <tr key={commit.id}>
+          <td style={{ padding: '8px', border: '1px solid #ddd' }}>{commit.id}</td>
+          <td style={{ padding: '8px', border: '1px solid #ddd' }}>{commit.message}</td>
+          <td style={{ padding: '8px', border: '1px solid #ddd' }}>{commit.comment_count}</td>
+          <td style={{ padding: '8px', border: '1px solid #ddd' }}>{commit.url}</td>
+          <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+            <button
+              onClick={() => handleFavoriteToggle(commit.id)}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
+                background: favorites.includes(commit.id) ? 'red' : 'transparent',
+                color: favorites.includes(commit.id) ? 'white' : 'black',
+                cursor: 'pointer'
+              }}
+            >
+              {favorites.includes(commit.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <div>
+    {Array.from({ length: totalPages }, (_, i) => (
+      <button
+        key={i + 1}
+        onClick={() => setCurrentPage(i + 1)}
+        style={{
+          padding: '6px 12px',
+          borderRadius: '4px',
+          border: '1px solid #ccc',
+          margin: '0 2px',
+		  marginBottom: '30px',
+          background: 'transparent',
+          cursor: 'pointer'
+        }}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+</div>
+
   );
 };
 
