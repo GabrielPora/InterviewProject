@@ -13,6 +13,9 @@ const TableView = () => {
       try {
         const response = await axios.get('http://localhost:4200/getallcommits');
         setData(response.data);
+
+		const initialFavorites = response.data.filter(commit => commit.favorite).map(commit => commit.id);
+        setFavorites(initialFavorites);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -35,11 +38,14 @@ const TableView = () => {
 
   const handleFavoriteToggle = (commitId) => {
     if (favorites.includes(commitId)) {
+	  const response = axios.post(`http://localhost:4200/favorite?id=${commitId}&favorite=false`);
       setFavorites(favorites.filter((id) => id !== commitId));
     } else {
+	  const response = axios.post(`http://localhost:4200/favorite?id=${commitId}&favorite=true`);
       setFavorites([...favorites, commitId]);
     }
   };
+
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto' }}>

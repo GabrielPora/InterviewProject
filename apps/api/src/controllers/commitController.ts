@@ -8,7 +8,11 @@ const commitRepository = dataSource.getRepository(Commit);
 
 export class CommitController {
   async getAllCommits(req: Request, res: Response) {
-    const commit = await commitRepository.find();
+    const commit = await commitRepository.find({
+      order: {
+        id: "ASC",
+      },
+    });
     res.json(commit);
   }
 
@@ -83,7 +87,11 @@ export class CommitController {
   async favoriteCommitUpdate(req: Request, res: Response) {
     const queryString = JSON.stringify(req.query);
     const json = JSON.parse(queryString);
-    if (json.id === null || Number.isNaN(json.id) || json.favorite === undefined) {
+    if (
+      json.id === null ||
+      Number.isNaN(json.id) ||
+      json.favorite === undefined
+    ) {
       res.status(400).send("Missing User ID or favorite not set");
       return;
     }
